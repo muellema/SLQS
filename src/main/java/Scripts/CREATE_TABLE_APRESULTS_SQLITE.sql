@@ -1,0 +1,9 @@
+CREATE TABLE APRESULTS
+  (
+     LIM   INTEGER,
+     EXPID INTEGER,
+     SCORE INTEGER,
+     AP    REAL,
+     COMB  TEXT,
+     ORDERING TEXT
+  );

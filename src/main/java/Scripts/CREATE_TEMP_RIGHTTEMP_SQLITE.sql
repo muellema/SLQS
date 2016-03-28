@@ -1,0 +1,11 @@
+CREATE TABLE RIGHTTEMP AS
+  SELECT TOKEN2LEMMA     AS LEMMA,
+         TOKEN2TAG       AS TAG,
+         Sum(TUPLECOUNT) AS RC
+  FROM   WINDOWCOUNT
+  WHERE  TOKEN2LEMMA IN (SELECT DISTINCT TOKEN2LEMMA
+                         FROM   WINDOWCOUNT
+                         WHERE  TOKEN1LEMMA IN (SELECT LEMMA
+                                                FROM   RELTARGETS))
+  GROUP  BY TOKEN2LEMMA,
+            TOKEN2TAG;

@@ -1,0 +1,15 @@
+INSERT INTO EVALUES(LIM, EXPID, LEMMA, TAG, E)
+SELECT ?,
+       EXPERIMENTS.ID,
+       RELTARGETS.LEMMA,
+       RELTARGETS.TAG,
+       (SELECT ( Median(ENT) - Min(ENT) ) / ( Max(ENT) - Min(ENT) )
+        FROM   (SELECT ENTROPY AS ENT
+                FROM   WIDTABLE
+                WHERE  WIDTABLE.EXPID = EXPERIMENTS.ID
+                       AND WIDTABLE.TOKEN1LEMMA = RELTARGETS.LEMMA
+                       AND WIDTABLE.TOKEN1TAG = RELTARGETS.TAG
+                ORDER  BY LMI DESC
+                LIMIT  ?)) AS E
+FROM   RELTARGETS,
+       EXPERIMENTS;
